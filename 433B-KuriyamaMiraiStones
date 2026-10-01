@@ -1,0 +1,52 @@
+import sys
+from collections import deque, defaultdict, Counter
+from heapq import heappush, heappop
+
+# O(nlogn) time, O(n) space
+
+
+def main() -> None:
+    data = sys.stdin.buffer.read().split()
+    it = iter(data)
+
+    out = []
+
+    # read n number of stones
+    n = int(next(it))
+
+    # read cost of stones
+    original = [int(next(it)) for _ in range(n)]
+
+    # read m number of queries
+    m = int(next(it))
+
+    # O(nlogn)
+    sorte = sorted(original)
+
+    # build prefix sums
+    pre_orig = [0] * (n + 1)
+    pre_sort = [0] * (n + 1)
+
+    for i in range(n):
+        pre_orig[i + 1] = pre_orig[i] + original[i]
+        pre_sort[i + 1] = pre_sort[i] + sorte[i]
+
+    ans = 0
+    # each query costs O(1)
+    # process each query
+    for q in range(m):
+        type = int(next(it))
+        l = int(next(it))
+        r = int(next(it))
+
+        if type == 1:
+            ans = pre_orig[r] - pre_orig[l - 1]
+        else:
+            ans = pre_sort[r] - pre_sort[l - 1]
+        out.append(str(ans))
+
+    # ... solve, append results to out ...
+    sys.stdout.write("\n".join(map(str, out)) + "\n")
+
+
+main()

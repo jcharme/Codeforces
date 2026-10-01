@@ -1,0 +1,41 @@
+import sys
+from collections import deque, defaultdict, Counter
+from heapq import heappush, heappop
+
+
+def main() -> None:
+    data = sys.stdin.buffer.read().split()
+    it = iter(data)
+    n = int(next(it))
+    out = []
+
+    # read n num of time in seconds to each bar
+    time_to_eat = [int(next(it)) for _ in range(n)]
+
+    left = 0
+    right = len(time_to_eat) - 1
+
+    sumA = 0
+    sumB = 0
+
+    countA = 0
+    countB = 0
+
+    while left <= right:
+        if sumA <= sumB:
+            countA += 1
+            sumA += time_to_eat[left]
+            left += 1
+        else:
+            countB += 1
+            sumB += time_to_eat[right]
+            right -= 1
+
+    out.append(countA)
+    out.append(countB)
+
+    # ... solve, append results to out ...
+    sys.stdout.write("\n".join(map(str, out)) + "\n")
+
+
+main()
