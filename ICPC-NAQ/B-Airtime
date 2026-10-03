@@ -1,0 +1,29 @@
+import sys
+from collections import deque, defaultdict, Counter
+from heapq import heappush, heappop
+
+
+def main() -> None:
+    data = sys.stdin.buffer.read().split()
+    it = iter(data)
+    n = int(next(it))
+    out = []
+
+    # altitude
+    a = [int(next(it)) for i in range(n)]
+
+    airtime = 0
+
+    for i in range(n - 2):
+        slope1 = a[i + 1] - a[i]
+        slope2 = a[i + 2] - a[i + 1]
+
+        if slope1 > slope2:
+            airtime += 1
+
+    out.append(airtime)
+
+    sys.stdout.write("\n".join(map(str, out)) + "\n")
+
+
+main()

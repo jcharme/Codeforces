@@ -1,0 +1,46 @@
+import sys
+from collections import deque, defaultdict, Counter
+from heapq import heappush, heappop
+
+
+def main() -> None:
+    data = sys.stdin.buffer.read().split()
+    it = iter(data)
+    t = int(next(it))
+    out = []
+
+    for test in range(t):
+        n = int(next(it))  # num attending
+        q = int(next(it))  # num songs
+        g = int(next(it))  # num dif genres
+
+        genre_count = {}  # key: genre, value: # dancing to it
+        current = {}  # key: person, value: genre
+
+        for line in range(q):
+            type = next(it)
+
+            if type == b"P":
+                s = int(next(it))  # genre
+                a = int(next(it))  # num people dancing
+
+                for p in range(a):
+                    person = int(next(it))
+
+                    # if person danced before, remove from old genre
+                    if person in current:
+                        old = current[person]
+                        genre_count[old] -= 1
+
+                    # assign new genre and increment count
+                    current[person] = s
+                    genre_count[s] = genre_count.get(s, 0) + 1
+
+            elif type == b"Q":
+                s = int(next(it))
+                out.append((genre_count.get(s, 0)))
+
+    sys.stdout.write("\n".join(map(str, out)) + "\n")
+
+
+main()

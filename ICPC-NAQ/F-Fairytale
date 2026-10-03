@@ -1,0 +1,26 @@
+import sys
+from collections import deque, defaultdict, Counter
+from heapq import heappush, heappop
+
+
+def main() -> None:
+    data = sys.stdin.buffer.read().split()
+    it = iter(data)
+    t = int(next(it))
+    out = []
+
+    for test in range(t):
+        n = int(next(it))
+        used = set()
+
+        for note in range(n):
+            p = int(next(it))
+            string = (p - 1) // 10
+            used.add(string)
+
+        out.append(len(used))
+
+    sys.stdout.write("\n".join(map(str, out)) + "\n")
+
+
+main()

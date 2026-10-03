@@ -1,0 +1,21 @@
+import sys
+from collections import deque, defaultdict, Counter
+from heapq import heappush, heappop
+
+
+def main() -> None:
+    data = sys.stdin.buffer.read().split()
+    it = iter(data)
+    t = int(next(it))
+    out = []
+
+    for test in range(t):
+        n = int(next(it))
+        hush = "s" + "h" * (n + 1)
+
+        out.append(hush)
+
+    sys.stdout.write("\n".join(map(str, out)) + "\n")
+
+
+main()
